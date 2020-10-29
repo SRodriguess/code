@@ -76,7 +76,7 @@ if (opcao == 'n' or opcao ==  'N'):
 		 que contem o Email que vai ser enviado os alertas """
 	numero_proc = 8
 	try:
-		print("\tComando 1: "+parametros["programa"]+" "+ numero_proc+" -s "+local_genoma)
+		print("\tComando 1: "+parametros["programa"]+" "+ str(numero_proc) +" -s "+local_genoma)
 		system(parametros["programa"]+" "+ str(numero_proc)+" -s "+local_genoma) # *nota01		
 
 		if(os.path.exists('./'+genoma+".out")):
@@ -109,7 +109,7 @@ else:
 	# numero_proc= input("Digite o Numero de Processadores que Será Usado;\n")
 	numero_proc = 8
 	try:
-		print("\tComando 5: "+parametros["programa"]+" "+ numero_proc+" -s "+local_genoma)
+		print("\tComando 5: "+parametros["programa"]+" "+ str(numero_proc) +" -s "+local_genoma)
 		system(parametros["programa"]+" "+ str(numero_proc)+" -s "+local_genoma)
 
 		if(os.path.exists('./'+genoma+".out")):
