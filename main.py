@@ -47,6 +47,7 @@ genoma = nome_arquivo
 parametros= modulos.carregarConfig(caminho)
 
 # faz a verificação do tipo de arquivo que será análisado(fasta ou fna)
+print("Genoma [-3]: "+genoma[-3])
 if genoma[-3]=="f":
 	saida=genoma.replace('.fna','')
 elif genoma[-3]=="s":
@@ -76,7 +77,7 @@ if (opcao == 'n' or opcao ==  'N'):
 	numero_proc = 8
 	try:
 		print("\tComando 1: "+parametros["programa"]+" "+ numero_proc+" -s "+local_genoma)
-		system(parametros["programa"]+" "+ numero_proc+" -s "+local_genoma) # *nota01		
+		system(parametros["programa"]+" "+ str(numero_proc)+" -s "+local_genoma) # *nota01		
 
 		if(os.path.exists('./'+genoma+".out")):
 			print("\tComando 2: "+"awk -v OFS='\t' '$1=$1' "+genoma+".out > "+saida+".tab")
@@ -88,7 +89,7 @@ if (opcao == 'n' or opcao ==  'N'):
 		else:
 			exit()
 	except:
-		print(VERMELHO+"ERRO Na Analise do Arquivo: "+genoma+NORMAL) # mensagem de erro na tela	
+		print(VERMELHO+"extp1: ERRO Na Analise do Arquivo: "+genoma+NORMAL) # mensagem de erro na tela	
 		#modulos.enviar_email("ERRO na Analise do Arquivo: "+genoma,parametros[1]) # mensagem de erro no email
 		exit() # é pra fechar o programa
 	else:
@@ -108,18 +109,20 @@ else:
 	# numero_proc= input("Digite o Numero de Processadores que Será Usado;\n")
 	numero_proc = 8
 	try:
-		system(parametros["programa"]+" "+ numero_proc+" -s "+local_genoma)
+		print("\tComando 5: "+parametros["programa"]+" "+ numero_proc+" -s "+local_genoma)
+		system(parametros["programa"]+" "+ str(numero_proc)+" -s "+local_genoma)
+
 		if(os.path.exists('./'+genoma+".out")):
-			print("\tComando 5: "+"awk -v OFS='\t' '$1=$1' "+genoma+".out > "+saida+".tab")
+			print("\tComando 6: "+"awk -v OFS='\t' '$1=$1' "+genoma+".out > "+saida+".tab")
 			system("awk -v OFS='\t' '$1=$1' "+genoma+".out > "+saida+".tab") # transforma a saída em um arquivo tabular
 
-			print("\tComando 6: "+"awk '{ print $10, $11 }' "+saida+".tab > "+saida+"colunasDuplas.tab")
+			print("\tComando 7: "+"awk '{ print $10, $11 }' "+saida+".tab > "+saida+"colunasDuplas.tab")
 			system("awk '{ print $10, $11 }' "+saida+".tab > "+saida+"colunasDuplas.tab") # cria um arquivo coma as colunas 10 e 11 da saída
 			#modulos.enviar_email("Analise Finalizada",parametros[1]) # *nota 02
 		else:
 			exit()
 	except:
-		print(VERMELHO+"ERRO Na Analise do Arquivo: "+genoma+NORMAL)	
+		print(VERMELHO+"extp2: ERRO Na Analise do Arquivo: "+genoma+NORMAL)	
 		#modulos.enviar_email("ERRO na Analise do Arquivo: "+genoma,parametros[1])
 		exit()
 	else:
